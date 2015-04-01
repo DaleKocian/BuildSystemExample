@@ -1,5 +1,17 @@
 apply plugin: 'com.android.application'
 android {
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v7'
+    }
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+    defaultConfig {
+        applicationId "app.buildsystemexample.com"
+        minSdkVersion 14
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
     signingConfigs {
         config {
             keyAlias 'MyAndroidKey'
@@ -8,30 +20,17 @@ android {
             storePassword 'myPassword'
         }
     }
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
-    defaultConfig {
-        applicationId "app.buildsystemexample.com"
-        minSdkVersion 14
-        targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
-    }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            debuggable true
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+            debuggable false
         }
-    }
-    dependencies {
-
-        compile 'com.android.support:appcompat-v7:21.0.2'
-        compile fileTree(dir: 'libs', include: ['*.jar'])
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
     }
     productFlavors {
         demo {
@@ -43,10 +42,17 @@ android {
             versionName '1.0-full'
         }
     }
+    dependencies {
+        compile 'com.android.support:appcompat-v7:22.0.0'
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 dependencies {
-    //    compile project(":lib")
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.android.support:appcompat-v7:22.0.0'
 }
 
